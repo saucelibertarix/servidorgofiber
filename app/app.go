@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"github.com/saucelibertarix/servidorgofiber/routes"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
@@ -22,25 +23,34 @@ func (a *App) Initialize(port string) {
 	fmt.Println(utils.GetEnvVariable("MYSQL_PASSWORD"))
 	fmt.Println(utils.GetEnvVariable("MYSQL_DATABASE"))
 
-	/*
-		InitializeDatabase(
-			utils.GetEnvVariable("MYSQL_USER"),
-			utils.GetEnvVariable("MYSQL_PASSWORD"),
-			utils.GetEnvVariable("MYSQL_DATABASE"))
+	InitializeDatabase(
+		utils.GetEnvVariable("MYSQL_USER"),
+		utils.GetEnvVariable("MYSQL_PASSWORD"),
+		utils.GetEnvVariable("MYSQL_DATABASE"))
 
-		database.Migrate()
-		//fakedatabase.CreateFakeData()
+	//database.Migrate()
+	//fakedatabase.CreateFakeData()
 
-		InitializeHttpServer(port)
-	*/
+	InitializeHttpServer(port)
 }
 
 func HandleRoutes(api fiber.Router) {
-
+	routes.MovieRoutes(api)
 }
 
 func InitializeHttpServer(port string) {
+	httpServer = fiber.New(fiber.Config{})
+	//httpServer.Use(cors.New(cors.Config{}))
 
+	api := httpServer.Group("/api") // /api
+	v1 := api.Group("/v1")          // /api/v1
+
+	HandleRoutes(v1)
+
+	err := httpServer.Listen(port)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func InitializeDatabase(user, password, databaseName string) {

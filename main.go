@@ -1,8 +1,10 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+    "github.com/saucelibertarix/servidorgofiber/app"
+)
 
 func main() {
-    app := fiber.New()
-    app.Listen(":3000")
+    a := app.App{}
+    a.Initialize(":3000")
 }
