@@ -12,6 +12,8 @@ func MovieRoutes(router fiber.Router) {
 	movieRouter := router.Group("/movie")
 
 
+	// /api/v1/movie/ | READ
+	movieRouter.Get("/", controllers.GetAllMovies)
 
 	// /api/v1/movie/:id | READ
 	movieRouter.Get("/:id", controllers.GetMovie)
@@ -23,7 +25,7 @@ func MovieRoutes(router fiber.Router) {
 	movieRouter.Patch("/:id", controllers.UpdateMovie)
 
 	// /api/v1/movie/:id | UPDATE
-	movieRouter.Delete("/:id", controllers.DeleteMovie)
+	movieRouter.Delete("/:id", controllers.DeleteMovieByID)
 
 	// aplicamos middleware de admin
 	movieRouter.Use(middlewares.AdminMiddleware)

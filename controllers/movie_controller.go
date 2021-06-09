@@ -70,6 +70,7 @@ func CreateMovie(context *fiber.Ctx) error {
 }
 
 func UpdateMovie(context *fiber.Ctx) error {
+	movieId, _ := strconv.ParseUint(context.Params("id"), 10, 64)
 	// parse request
 	movie := new(models.Movie)
 	err := context.BodyParser(movie)
@@ -84,7 +85,7 @@ func UpdateMovie(context *fiber.Ctx) error {
 	}
 
 	// create db
-	createMovieResult, err := services.UpdateMovie(movie)
+	createMovieResult, err := services.UpdateMovie(uint(movieId), movie)
 	if err != nil {
 		return utils.ReturnErrorResponse(fiber.StatusBadRequest, err, context)
 	}
@@ -92,12 +93,14 @@ func UpdateMovie(context *fiber.Ctx) error {
 	return context.JSON(createMovieResult)
 }
 
-func DeleteMovie(context *fiber.Ctx) error {
+func DeleteMovieByID(context *fiber.Ctx) error {
 	// parse request
+	movieId, _ := strconv.ParseUint(context.Params("id"), 10, 64)
 
-	// validation
+	err := services.DeleteMovieById(uint(movieId))
+	if err != nil{
+		return utils.ReturnErrorResponse(fiber.StatusBadRequest, err, context)
+	}
 
-	// update db
-
-	return context.JSON("Delete Movie")
+	return context.JSON("Movie delete successfully")
 }

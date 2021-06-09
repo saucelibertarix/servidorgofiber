@@ -38,27 +38,24 @@ func CreateMovie(receivedMovie *models.Movie) error {
 	return createResult.Error
 }
 
-func UpdateMovie(movie *models.Movie) (*models.Movie, error) {
-
-	/*
-		updateResul, err := dbgorm.update(movie)
-		if err != nill
-			return err
-	*/
-
-	return nil, nil
+func UpdateMovie(id uint, movie *models.Movie) (*models.Movie, error) {
+	queryMovie := new(models.Movie)
+	database.GormDB.Where("id = ?", id).Find(&queryMovie)
+	if queryMovie.ID == 0{
+		return nil, errors.New("No existe la película que quierwe modificar")
+	}
+	updatedMovie := database.GormDB.Updates(&movie)
+	return movie , updatedMovie.Error
 }
 
-func DeleteMovie(id uint) error {
-	/*
-		comprobar que existe
-		result = findById(id)
-		if result === existe
-			dbgorm.delete(result)
-		else {
-		retirm erro("no existe")
+func DeleteMovieById(id uint) error {
+	requestMovie := new(models.Movie)
+	database.GormDB.Where("id = ?", id).Find(&requestMovie)
 
-	*/
+	if requestMovie.ID == 0{
+		return errors.New("No existe la película que quiere borrar")
+	}
+	deleteResult := database.GormDB.Delete("id", id)
 
-	return nil
+	return deleteResult.Error
 }
