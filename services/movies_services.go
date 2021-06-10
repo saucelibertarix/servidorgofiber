@@ -44,7 +44,7 @@ func UpdateMovie(id uint, movie *models.Movie) (*models.Movie, error) {
 	if queryMovie.ID == 0{
 		return nil, errors.New("No existe la película que quierwe modificar")
 	}
-	updatedMovie := database.GormDB.Updates(&movie)
+	updatedMovie := database.GormDB.Where("id = ?", &queryMovie.ID).Updates(&movie)
 	return movie , updatedMovie.Error
 }
 
@@ -55,7 +55,7 @@ func DeleteMovieById(id uint) error {
 	if requestMovie.ID == 0{
 		return errors.New("No existe la película que quiere borrar")
 	}
-	deleteResult := database.GormDB.Delete("id", id)
+	deleteResult := database.GormDB.Delete(requestMovie)
 
 	return deleteResult.Error
 }

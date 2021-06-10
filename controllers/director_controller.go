@@ -15,7 +15,7 @@ func GetAllDirectors(context *fiber.Ctx) error{
 	if err != nil{
 		return utils.ReturnErrorResponse(fiber.StatusBadRequest, err, context)
 	}
-	return context.JSON(&list)
+	return context.JSON(list)
 }
 
 func GetDirectorByID(context *fiber.Ctx) error{

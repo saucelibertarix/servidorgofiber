@@ -34,12 +34,12 @@ func CreateDirector(receviedDirector *models.Director) error{
 
 func UpdateDirector(id uint, director *models.Director) (*models.Director, error){
 	queryDirector := new(models.Director)
-	database.GormDB.Where("name = ?", director.Name).Find(&queryDirector)
+	database.GormDB.Where("id = ?", id).Find(&queryDirector)
 	if queryDirector.ID == 0{
 		return nil, errors.New("No existe el director que quiere actualizar ")
 	}
 
-	updateResult := database.GormDB.Updates(&director)
+	updateResult := database.GormDB.Where("id = ?", queryDirector.ID).Updates(&director)
 
 	return director, updateResult.Error
 }

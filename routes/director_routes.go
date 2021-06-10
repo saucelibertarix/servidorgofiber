@@ -19,10 +19,10 @@ func DirectorRoutes(router fiber.Router){
 	// /api/v1/director/ CREATE
 	directorRouter.Post("/", controllers.CreateDirector)
 
+	directorRouter.Use(middlewares.AdminMiddleware)
+
 	// /api/v1/director/:id UPDATE
 	directorRouter.Patch("/:id", controllers.UpdateDirector)
-
-	directorRouter.Use(middlewares.AdminMiddleware)
 
 	// /api/v1/director/:id
 	directorRouter.Delete(":id", controllers.DeleteDirector)
