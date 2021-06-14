@@ -37,7 +37,7 @@ func CreateDirector(context *fiber.Ctx) error{
 		return utils.ReturnErrorResponse(fiber.StatusBadRequest, err, context)
 	}
 	//Validamos
-	err = utils.ValidateRequestPayload(director, context)
+	err = utils.ValidateRequestPayload(director)
 	if err != nil{
 		return utils.ReturnErrorResponse(fiber.StatusBadRequest, err, context)
 	}
@@ -58,7 +58,7 @@ func UpdateDirector(context *fiber.Ctx) error{
 		return utils.ReturnErrorResponse(fiber.StatusBadRequest, err, context)
 	}
 
-	err = utils.ValidateRequestPayload(director, context)
+	err = utils.ValidateRequestPayload(director)
 	if err != nil{
 		return utils.ReturnErrorResponse(fiber.StatusBadRequest, err, context)
 	}

@@ -15,7 +15,7 @@ func ReturnSuccessResponse(context *fiber.Ctx) error {
 	})
 }
 
-func ValidateRequestPayload(payload interface{}, context *fiber.Ctx) error {
+func ValidateRequestPayload(payload interface{}) error {
 	v := validator.New()
 	err := v.Struct(payload)
 	if err != nil {

@@ -29,7 +29,7 @@ func (a *App) Initialize(port string) {
 		utils.GetEnvVariable("MYSQL_DATABASE"))
 
 	database.Migrate()
-	//fakedatabase.CreateFakeData()
+	database.CreateFakeData()
 
 	InitializeHttpServer(port)
 }
@@ -37,6 +37,7 @@ func (a *App) Initialize(port string) {
 func HandleRoutes(api fiber.Router) {
 	routes.MovieRoutes(api)
 	routes.DirectorRoutes(api)
+	routes.AuthRoutes(api)
 }
 
 func InitializeHttpServer(port string) {

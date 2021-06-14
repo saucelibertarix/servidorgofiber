@@ -55,7 +55,7 @@ func CreateMovie(context *fiber.Ctx) error {
 	}
 
 	// Validamos la estructura y el valor de los datos de los datos
-	err = utils.ValidateRequestPayload(movie, context)
+	err = utils.ValidateRequestPayload(movie)
 	if err != nil {
 		return utils.ReturnErrorResponse(fiber.StatusBadRequest, err, context)
 	}
@@ -79,7 +79,7 @@ func UpdateMovie(context *fiber.Ctx) error {
 	}
 
 	// validation
-	err = utils.ValidateRequestPayload(movie, context)
+	err = utils.ValidateRequestPayload(movie)
 	if err != nil {
 		return utils.ReturnErrorResponse(fiber.StatusBadRequest, err, context)
 	}
