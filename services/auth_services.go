@@ -53,6 +53,7 @@ func LoginClient(loginClientRequest *models.LoginClientRequest, ) (*models.Login
 		Name:  clientBD.Name,
 		Email: clientBD.Email,
 		Token: token,
+		Role: clientBD.Role,
 	}
 
 	return clientLoginResponse, nil
